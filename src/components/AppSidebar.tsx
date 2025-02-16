@@ -13,8 +13,8 @@ import Link from "next/link";
 
 const menuItems = [
   { title: "Dashboard", icon: Home, href: "/" },
-  { title: "Budget", icon: DollarSign, href: "/budget" },
-  { title: "Wallet", icon: Wallet, href: "/wallet" },
+  { title: "Budget", icon: DollarSign, href: "/budgets" },
+  { title: "Wallet", icon: Wallet, href: "/wallets" },
   { title: "Expenses", icon: CreditCard, href: "/expenses" },
 ];
 
