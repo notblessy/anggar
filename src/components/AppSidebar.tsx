@@ -1,26 +1,22 @@
-import {
-  Home,
-  DollarSign,
-  Wallet,
-  CreditCard,
-  LogOut,
-  Menu,
-  Landmark,
-  ChartNoAxesCombined,
-} from "lucide-react";
+"use client";
+
+import { usePathname } from "next/navigation";
+
+import { Home, DollarSign, Wallet, CreditCard, LogOut } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-  SidebarTrigger,
   SidebarHeader,
 } from "@/components/ui/sidebar";
+
 import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const menuItems = [
   { title: "Dashboard", icon: Home, href: "/" },
@@ -30,11 +26,12 @@ const menuItems = [
 ];
 
 export function AppSidebar() {
+  const pathname = usePathname();
   return (
     <Sidebar className="bg-gray-100 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
       <SidebarHeader>
-        <div className="flex items-center gap-3 px-4 py-3">
-          <ChartNoAxesCombined />
+        <div className="flex items-center justify-center gap-3 px-4 py-3 bg-gray-200 dark:bg-gray-800 rounded-sm">
+          <Image src="/anggar.png" width={24} height={24} alt="Anggar Logo" />
           <div className="text-lg font-semibold">Anggar Wealth</div>
         </div>
       </SidebarHeader>
@@ -46,7 +43,11 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
                     asChild
-                    className="hover:bg-gray-200 dark:hover:bg-gray-800 py-5"
+                    className={cn(
+                      "hover:bg-gray-200 dark:hover:bg-gray-800 py-5",
+                      pathname === item.href &&
+                        "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                    )}
                   >
                     <Link
                       href={item.href}
@@ -61,7 +62,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  className="hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="hover:bg-gray-200 dark:hover:bg-gray-800 py-5"
                 >
                   <Link
                     href="/api/auth/logout"

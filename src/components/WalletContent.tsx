@@ -38,8 +38,8 @@ export function WalletContent() {
     <>
       <div className="w-full max-w-6xl mx-auto">
         <h1 className="text-2xl font-semibold mb-5">Wallets</h1>
-        <div className="flex justify-between items-center mb-6">
-          <div className="relative">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="relative mb-6">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder="Search wallets..."
@@ -50,7 +50,7 @@ export function WalletContent() {
           </div>
           <Button
             onClick={() => setIsCreateDialogOpen(true)}
-            className="bg-gray-800 text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-gray-300"
+            className="bg-gray-800 text-white hover:bg-gray-700 dark:bg-gray-200 dark:text-gray-800 dark:hover:bg-gray-300 mb-6"
           >
             <Plus className="mr-2 h-4 w-4" />
             Add Budget
