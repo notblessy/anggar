@@ -1,12 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getUser } from "@/lib/context/auth";
 
 export default async function Dashboard() {
-  const user = await getUser();
-
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-bold">Welcome, {user}</h1>
+      <h1 className="text-2xl font-bold">Welcome, test</h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

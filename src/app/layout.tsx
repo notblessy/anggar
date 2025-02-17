@@ -20,12 +20,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           inter.className,
           "bg-background-lightest dark:bg-background-lightest"
         )}
+        suppressHydrationWarning
       >
         <Providers>{children}</Providers>
       </body>

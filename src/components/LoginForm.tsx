@@ -5,19 +5,22 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
+import { useToast } from "@/lib/context/toast";
 
 export function LoginForm() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+  const toast = useToast();
+
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     // Mock login - in real app this would connect to Google OAuth
-    setTimeout(() => {
-      // Mock successful login
-      document.cookie = "user=test@example.com; path=/";
-      router.push("/");
-    }, 1000);
+    // setTimeout(() => {
+    //   // Mock successful login
+    //   document.cookie = "user=test@example.com; path=/";
+    //   router.push("/");
+    // }, 1000);
   };
 
   return (
