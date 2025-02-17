@@ -30,7 +30,7 @@ export function AppSidebar() {
   return (
     <Sidebar className="bg-background dark:bg-background border-r border-border dark:border-border">
       <SidebarHeader>
-        <div className="flex items-center justify-center gap-3 px-4 py-3 border-border dark:border-border rounded-sm">
+        <div className="flex items-center justify-center gap-3 px-4 py-3 border-b dark:border-border">
           <div className="w-10 h-10 bg-primary-lighter dark:bg-primary-lighter rounded-full flex items-center justify-center">
             <Image
               src="/anggar.webp"
@@ -40,7 +40,7 @@ export function AppSidebar() {
               alt="Anggar Logo"
             />
           </div>
-          <div className="text-lg font-semibold">Anggar</div>
+          <div className="text-sm font-semibold">ANGGAR DASHBOARD</div>
         </div>
       </SidebarHeader>
       <SidebarContent>

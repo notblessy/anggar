@@ -21,13 +21,13 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="w-[400px] shadow-lg">
+    <Card className="w-[400px] shadow-lg bg-background-lighter">
       <CardHeader className="pb-2">
         <div className="flex flex-col items-center space-y-2 mb-4">
-          <div className="rounded-full bg-gray-100 p-3 dark:bg-gray-800">
-            <Image src="/anggar.webp" alt="Anggar" width={24} height={24} />
+          <div className="flex rounded-full bg-background-darker w-10 h-10 items-center">
+            <Image src="/anggar.webp" alt="Anggar" width={38} height={38} />
           </div>
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">
             Welcome to Anggar
           </h1>
         </div>
@@ -36,7 +36,7 @@ export function LoginForm() {
         <div className="flex flex-col space-y-4">
           <Button
             variant="outline"
-            className="w-full"
+            className="w-full text-foreground"
             onClick={handleGoogleLogin}
             disabled={isLoading}
           >
