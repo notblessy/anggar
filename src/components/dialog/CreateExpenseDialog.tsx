@@ -18,14 +18,30 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function CreateExpenseDialog({ isOpen, onClose, onCreateExpense }) {
+interface CreateExpenseDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onCreateExpense: (expense: {
+    date: string;
+    description: string;
+    amount: number;
+    category: string;
+    paymentMethod: string;
+  }) => void;
+}
+
+export function CreateExpenseDialog({
+  isOpen,
+  onClose,
+  onCreateExpense,
+}: CreateExpenseDialogProps) {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onCreateExpense({
       date,
