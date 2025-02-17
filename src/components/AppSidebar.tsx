@@ -31,8 +31,16 @@ export function AppSidebar() {
     <Sidebar className="bg-background dark:bg-background border-r border-border dark:border-border">
       <SidebarHeader>
         <div className="flex items-center justify-center gap-3 px-4 py-3 border-border dark:border-border rounded-sm">
-          <Image src="/anggar.png" width={24} height={24} alt="Anggar Logo" />
-          <div className="text-lg font-semibold">Anggar Wealth</div>
+          <div className="w-10 h-10 bg-primary-lighter dark:bg-primary-lighter rounded-full flex items-center justify-center">
+            <Image
+              src="/anggar.webp"
+              width={48}
+              height={48}
+              className="p-1"
+              alt="Anggar Logo"
+            />
+          </div>
+          <div className="text-lg font-semibold">Anggar</div>
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -62,7 +70,7 @@ export function AppSidebar() {
               <SidebarMenuItem>
                 <SidebarMenuButton
                   asChild
-                  className="hover:bg-gray-200 dark:hover:bg-gray-800 py-5"
+                  className="hover:bg-primary-darker dark:hover:bg-primary-darker py-5"
                 >
                   <Link
                     href="/api/auth/logout"

@@ -25,7 +25,7 @@ export function LoginForm() {
       <CardHeader className="pb-2">
         <div className="flex flex-col items-center space-y-2 mb-4">
           <div className="rounded-full bg-gray-100 p-3 dark:bg-gray-800">
-            <Image src="/anggar.png" alt="Anggar" width={24} height={24} />
+            <Image src="/anggar.webp" alt="Anggar" width={24} height={24} />
           </div>
           <h1 className="text-2xl font-semibold tracking-tight">
             Welcome to Anggar
