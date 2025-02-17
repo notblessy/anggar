@@ -17,10 +17,13 @@ export function Providers({ children }: { children: ReactNode }) {
         <SidebarProvider defaultOpen={true}>
           <div className="flex h-screen w-full">
             <AppSidebar />
-            <SidebarTrigger className="p-1 w-14 h-10" size="lg" />
             <main className="w-full flex justify-center overflow-y-auto">
               <div className="w-full flex flex-col items-center mx-auto py-6 px-4">
-                <div className="flex justify-end mb-4 w-full">
+                <div className="flex justify-between mb-4 w-full">
+                  <SidebarTrigger
+                    className="p-1 w-10 h-10 border border-border bg-background dark:bg-background rounded-md"
+                    size="lg"
+                  />
                   <ModeToggle />
                 </div>
                 {children}

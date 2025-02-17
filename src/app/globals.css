@@ -5,65 +5,115 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
+  --background-white: 43 100% 98%; /* Very light yellow */
+  --background-lightest: 43 100% 95%; /* Very light yellow */
+  --background-lighter: 43 95% 90%;
+  --background: 43 89.4% 85%; /* Light yellow */
+  --background-darker: 43 80% 70%;
+  --background-darkest: 43 70% 50%;
 
-  --card: 0 0% 98%;
-  --card-foreground: 0 0% 3.9%;
+  --foreground: 43 89.4% 20%; /* Darker shade of yellow for contrast */
 
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 3.9%;
+  --card: 43 89.4% 45%;
+  --card-foreground: 43 89.4% 90%;
 
-  --primary: 0 0% 9%;
-  --primary-foreground: 0 0% 98%;
+  --popover: 43 89.4% 45%;
+  --popover-foreground: 43 89.4% 90%;
 
-  --secondary: 0 0% 96.1%;
-  --secondary-foreground: 0 0% 9%;
+  --primary-lightest: 43 100% 85%;
+  --primary-lighter: 43 95% 75%;
+  --primary: 43 89.4% 66.7%; /* Main bright yellow */
+  --primary-darker: 43 80% 50%;
+  --primary-darkest: 43 70% 35%;
 
-  --muted: 0 0% 96.1%;
-  --muted-foreground: 0 0% 45.1%;
+  --secondary-lightest: 43 100% 70%;
+  --secondary-lighter: 43 95% 60%;
+  --secondary: 43 89.4% 50%; /* Darker than primary */
+  --secondary-darker: 43 80% 40%;
+  --secondary-darkest: 43 70% 30%;
 
-  --accent: 0 0% 96.1%;
-  --accent-foreground: 0 0% 9%;
+  --tertiary: 43 89.4% 55%; /* Between primary & secondary */
+  --tertiary-foreground: 43 89.4% 90%;
 
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
+  --muted: 43 30% 45%; /* Desaturated dark yellow */
+  --muted-foreground: 43 30% 80%;
 
-  --border: 0 0% 89.8%;
-  --input: 0 0% 89.8%;
-  --ring: 0 0% 3.9%;
+  --accent: 43 89.4% 55%; /* Slightly darker than primary */
+  --accent-foreground: 43 89.4% 90%;
+
+  --contrast: 43 100% 25%; /* Very dark yellow for contrast */
+  --contrast-foreground: 43 100% 90%;
+
+  --highlight: 43 100% 75%; /* Lighter than primary */
+  --highlight-foreground: 43 100% 15%;
+
+  --subtle: 43 50% 35%; /* Faded yellow */
+  --subtle-foreground: 43 50% 85%;
+
+  --elevated: 43 100% 80%; /* Very bright yellow */
+  --elevated-foreground: 43 100% 10%;
+
+  --destructive: 15 72.7% 45%; /* Darker orange-red */
+  --destructive-foreground: 43 89.4% 90%;
+
+  --border: 43 89.4% 50%;
+  --input: 43 89.4% 50%;
+  --ring: 43 89.4% 45%; /* Darker yellow for focus rings */
+  --shadow: 43 40% 20%; /* Soft shadow with yellow tone */
 
   --radius: 0.5rem;
 }
 
 .dark {
-  --background: 0 0% 3.9%;
-  --foreground: 0 0% 98%;
+  --background-white: 43 100% 10%; /* Very dark yellow */
+  --background-lightest: 43 60% 30%;
+  --background-lighter: 43 50% 25%;
+  --background: 43 40% 20%; /* Dark yellow */
+  --background-darker: 43 30% 15%;
+  --background-darkest: 43 20% 10%;
 
-  --card: 0 0% 3.9%;
-  --card-foreground: 0 0% 98%;
+  --foreground: 43 89.4% 90%; /* Light yellow for contrast */
 
-  --popover: 0 0% 3.9%;
-  --popover-foreground: 0 0% 98%;
+  --card: 43 89.4% 30%;
+  --card-foreground: 43 89.4% 85%;
 
-  --primary: 0 0% 98%;
-  --primary-foreground: 0 0% 9%;
+  --popover: 43 89.4% 30%;
+  --popover-foreground: 43 89.4% 85%;
 
-  --secondary: 0 0% 14.9%;
-  --secondary-foreground: 0 0% 98%;
+  --primary: 43 89.4% 66.7%;
+  --primary-foreground: 43 89.4% 10%;
 
-  --muted: 0 0% 14.9%;
-  --muted-foreground: 0 0% 63.9%;
+  --secondary: 43 89.4% 35%;
+  --secondary-foreground: 43 89.4% 85%;
 
-  --accent: 0 0% 14.9%;
-  --accent-foreground: 0 0% 98%;
+  --tertiary: 43 89.4% 40%;
+  --tertiary-foreground: 43 89.4% 85%;
 
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  --muted: 43 30% 35%;
+  --muted-foreground: 43 30% 70%;
 
-  --border: 0 0% 14.9%;
-  --input: 0 0% 14.9%;
-  --ring: 0 0% 83.1%;
+  --accent: 43 89.4% 40%;
+  --accent-foreground: 43 89.4% 85%;
+
+  --contrast: 43 100% 15%; /* Very dark yellow */
+  --contrast-foreground: 43 100% 85%;
+
+  --highlight: 43 100% 60%;
+  --highlight-foreground: 43 100% 10%;
+
+  --subtle: 43 50% 25%;
+  --subtle-foreground: 43 50% 75%;
+
+  --elevated: 43 100% 70%;
+  --elevated-foreground: 43 100% 5%;
+
+  --destructive: 15 72.7% 40%;
+  --destructive-foreground: 43 89.4% 90%;
+
+  --border: 43 89.4% 35%;
+  --input: 43 89.4% 35%;
+  --ring: 43 89.4% 30%;
+  --shadow: 43 40% 10%; /* Deeper shadow */
 }
 
 body {

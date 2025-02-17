@@ -28,9 +28,9 @@ const menuItems = [
 export function AppSidebar() {
   const pathname = usePathname();
   return (
-    <Sidebar className="bg-gray-100 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+    <Sidebar className="bg-background dark:bg-background border-r border-border dark:border-border">
       <SidebarHeader>
-        <div className="flex items-center justify-center gap-3 px-4 py-3 bg-gray-200 dark:bg-gray-800 rounded-sm">
+        <div className="flex items-center justify-center gap-3 px-4 py-3 border-border dark:border-border rounded-sm">
           <Image src="/anggar.png" width={24} height={24} alt="Anggar Logo" />
           <div className="text-lg font-semibold">Anggar Wealth</div>
         </div>
@@ -44,9 +44,9 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     asChild
                     className={cn(
-                      "hover:bg-gray-200 dark:hover:bg-gray-800 py-5",
+                      "hover:bg-primary-darker dark:hover:bg-primary-darker py-5",
                       pathname === item.href &&
-                        "bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                        "bg-primary-darker dark:bg-primary-darker text-accent-darkest dark:text-accent-darkest"
                     )}
                   >
                     <Link

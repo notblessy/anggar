@@ -3,5 +3,5 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="w-full">{children}</div>;
+  return <div className="w-full flex flex-col items-center">{children}</div>;
 }
