@@ -40,7 +40,10 @@ export function AppSidebar() {
               alt="Anggar Logo"
             />
           </div>
-          <div className="text-sm font-semibold">ANGGAR DASHBOARD</div>
+          <div className="flex flex-col">
+            <div className="text-sm font-semibold">ANGGAR MANAGER</div>
+            <p className="text-xs text-muted">Simplifies your financial.</p>
+          </div>
         </div>
       </SidebarHeader>
       <SidebarContent>
