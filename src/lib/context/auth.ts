@@ -6,17 +6,17 @@ import { cookies } from "next/headers";
 export async function login(email: string, password: string): Promise<boolean> {
   // For demo purposes, we'll consider any non-empty email and password as valid
   if (email && password) {
-    cookies().set("user", email, { httpOnly: true });
+    (await cookies()).set("user", email, { httpOnly: true });
     return true;
   }
   return false;
 }
 
 export async function logout() {
-  cookies().delete("user");
+  // cookies().delete("user");
 }
 
 export async function getUser(): Promise<string | null> {
-  const user = cookies().get("user");
+  const user = (await cookies()).get("user");
   return user ? user.value : null;
 }
