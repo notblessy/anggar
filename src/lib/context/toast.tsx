@@ -52,13 +52,15 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
           onOpenChange={setOpen}
           style={{
             width: "300px",
+            position: "fixed",
+            right: open ? "20px" : "-300px",
             backgroundColor: "#fff9e6",
             padding: "10px 20px 10px 10px",
             borderRadius: "5px 0 0 5px",
             borderLeft: `5px solid ${toastTypeColor[type]}`,
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
             transition: "all 0.2s",
-            transform: `translateX(${open ? "0" : "120%"})`,
+            transform: `translateX(${!open ? "300%" : "0"})`,
           }}
         >
           <div className="flex gap-3 items-center">

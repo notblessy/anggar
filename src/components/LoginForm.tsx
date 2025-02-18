@@ -1,27 +1,22 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useAuth } from "@/lib/context/auth";
+import { useGoogleLogin } from "@react-oauth/google";
+
 import Image from "next/image";
-import { useToast } from "@/lib/context/toast";
 
 export function LoginForm() {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const { onAuthenticateGoogle, loading } = useAuth();
 
-  const toast = useToast();
-
-  const handleGoogleLogin = async () => {
-    setIsLoading(true);
-    // Mock login - in real app this would connect to Google OAuth
-    // setTimeout(() => {
-    //   // Mock successful login
-    //   document.cookie = "user=test@example.com; path=/";
-    //   router.push("/");
-    // }, 1000);
-  };
+  const login = useGoogleLogin({
+    flow: "auth-code",
+    onSuccess: (tokenResponse) => {
+      return onAuthenticateGoogle(tokenResponse);
+    },
+    onError: (tokenResponse) => console.error(tokenResponse),
+  });
 
   return (
     <Card className="w-[400px] shadow-lg bg-background-lighter">
@@ -40,10 +35,10 @@ export function LoginForm() {
           <Button
             variant="outline"
             className="w-full text-foreground"
-            onClick={handleGoogleLogin}
-            disabled={isLoading}
+            onClick={() => login()}
+            disabled={loading}
           >
-            {isLoading ? (
+            {loading ? (
               <div className="flex items-center space-x-2">
                 <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-600 border-t-transparent"></div>
                 <span>Signing in...</span>

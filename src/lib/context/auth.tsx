@@ -29,7 +29,12 @@ interface AuthContextType {
   onLogout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType>({
+  loading: false,
+  user: null,
+  onAuthenticateGoogle: () => {},
+  onLogout: () => {},
+});
 
 import { ReactNode } from "react";
 import { useToast } from "./toast";
@@ -48,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     error,
     isLoading,
     isValidating,
-  } = useSWR(() => (accessToken ? "/v1/users/profile" : ""));
+  } = useSWR(() => (accessToken ? "/v1/users/me" : ""));
 
   useEffect(() => {
     if (cookies.accessToken) {
@@ -64,7 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         const { data: res } = await api.post("/v1/auth/login/google", data);
 
-        if (res.data && res.message === "success") {
+        if (res.data && res.success) {
           var expiredAt = new Date();
           expiredAt.setMonth(expiredAt.getMonth() + 1);
 
@@ -74,9 +79,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             expires: expiredAt,
           });
 
-          setTimeout(() => {
-            mutate("/v1/users/profile");
-            router.push("/");
+          setTimeout(async () => {
+            await mutate("/v1/users/profile");
+            router.push("/dashboard");
           }, 500);
         } else if (res.success && !res.data) {
           toast.showToast(res.message, "error");
@@ -95,14 +100,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const onLogout = () => {
     setAccessToken("");
     removeCookie("accessToken", { path: "/" });
-    router.push("/");
+    router.push("/auth");
   };
 
   return (
     <AuthContext.Provider
       value={{
         loading: isLoading || isValidating || loading,
-        user,
+        user: user?.data,
         onAuthenticateGoogle,
         onLogout,
       }}

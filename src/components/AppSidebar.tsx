@@ -17,9 +17,10 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/lib/context/auth";
 
 const menuItems = [
-  { title: "Dashboard", icon: Home, href: "/" },
+  { title: "Dashboard", icon: Home, href: "/dashboard" },
   { title: "Budgets", icon: DollarSign, href: "/budgets" },
   { title: "Wallets", icon: Wallet, href: "/wallets" },
   { title: "Transactions", icon: CreditCard, href: "/transactions" },
@@ -27,6 +28,9 @@ const menuItems = [
 
 export function AppSidebar() {
   const pathname = usePathname();
+
+  const { onLogout } = useAuth();
+
   return (
     <Sidebar className="bg-background dark:bg-background border-r border-border dark:border-border">
       <SidebarHeader>
@@ -75,13 +79,13 @@ export function AppSidebar() {
                   asChild
                   className="hover:bg-primary-darker dark:hover:bg-primary-darker py-5"
                 >
-                  <Link
-                    href="/api/auth/logout"
+                  <button
+                    onClick={onLogout}
                     className="flex items-center space-x-2 px-4 py-2"
                   >
                     <LogOut className="w-5 h-5" />
                     <span>Logout</span>
-                  </Link>
+                  </button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

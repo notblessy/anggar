@@ -4,6 +4,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "./provider";
 import { cn } from "@/lib/utils";
+
+import config from "../../config";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,7 +31,9 @@ export default function DashboardLayout({
         )}
         suppressHydrationWarning
       >
-        <Providers>{children}</Providers>
+        <Providers googleClientId={config.GOOGLE_CLIENT_ID || ""}>
+          {children}
+        </Providers>
       </body>
     </html>
   );
