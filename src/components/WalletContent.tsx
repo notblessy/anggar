@@ -12,26 +12,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, Search, MoreHorizontal } from "lucide-react";
-import { CreateExpenseDialog } from "./dialog/CreateExpenseDialog";
-import { dummyWallets } from "@/lib/dummy";
+import { useWallets } from "@/lib/hooks/useWallets";
+
+import moment from "moment";
+import { CreateWallet } from "./dialog/CreateWallet";
 
 export function WalletContent() {
-  const [wallets, setWallets] = useState(dummyWallets);
+  const {data: wallets, onAdd, onQuery} = useWallets();
+
   const [search, setSearch] = useState("");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
-  const filteredWallets = wallets.filter((wallet) => {
-    return (
-      wallet.name.toLowerCase().includes(search.toLowerCase()) ||
-      wallet.name.toLowerCase().includes(search.toLowerCase())
-    );
-  });
-
-  const handleCreateBudgets = (newBudget: any) => {
-    setWallets([
-      ...wallets,
-      { id: wallets.length + 1, icon: "💰", ...newBudget },
-    ]);
+  const handleCreateWallet = (newBudget: any) => {
+    onAdd(newBudget);
+    setIsCreateDialogOpen(false);
   };
 
   return (
@@ -44,7 +38,12 @@ export function WalletContent() {
             <Input
               placeholder="Search wallets..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                onQuery({
+                  keyword: e.target.value
+                })
+              }}
               className="pl-10 w-[300px] text-primary-foreground bg-background-white dark:bg-background-white border-border dark:border-border"
             />
           </div>
@@ -64,18 +63,20 @@ export function WalletContent() {
                 <TableHead className="font-semibold">ID</TableHead>
                 <TableHead className="font-semibold">Name</TableHead>
                 <TableHead className="font-semibold">Balance</TableHead>
+                <TableHead className="font-semibold">Date Created</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredWallets.map((wallet) => (
+              {wallets?.records.map((wallet) => (
                 <TableRow
                   key={wallet.id}
                   className="border-b border-border dark:border-border"
                 >
                   <TableCell className="font-medium">{wallet.id}</TableCell>
                   <TableCell>{wallet.name}</TableCell>
-                  <TableCell>{wallet.balance}</TableCell>
+                  <TableCell>{`Rp${new Intl.NumberFormat('id-ID').format(wallet.balance)}`}</TableCell>
+                  <TableCell>{moment(wallet.created_at).format("DD MMM YYYY")}</TableCell>
                   <TableCell>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <MoreHorizontal className="h-4 w-4" />
@@ -87,10 +88,10 @@ export function WalletContent() {
           </Table>
         </div>
 
-        <CreateExpenseDialog
+        <CreateWallet
           isOpen={isCreateDialogOpen}
           onClose={() => setIsCreateDialogOpen(false)}
-          onCreateExpense={handleCreateBudgets}
+          onAdd={handleCreateWallet}
         />
       </div>
     </>

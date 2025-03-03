@@ -1,7 +1,4 @@
 import { LoginForm } from "@/components/LoginForm";
-import { useToast } from "@/lib/context/toast";
-import { useEffect } from "react";
-
 export default function LoginPage() {
   return (
     <div
