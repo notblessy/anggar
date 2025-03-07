@@ -6,10 +6,9 @@ import { ApiResponse, PaginatedResponse } from "@/lib/types";
 import useSWR, { mutate } from "swr";
 import api from "@/lib/api";
 
-export interface Wallet {
+export interface Scope {
   id: string;
   name: string;
-  balance: number;
   created_at: string;
 }
 
@@ -20,7 +19,7 @@ interface QueryParams {
   keyword?: string;
 }
 
-export const useWallets = () => {
+export const useScopes = () => {
   const { user } = useAuth();
   const toast = useToast();
 
@@ -33,24 +32,24 @@ export const useWallets = () => {
   const [sort, setSort] = useState<string>("-created_at");
   const [keyword, setKeyword] = useState<string>("");
 
-  const pathKey = `v1/wallets${
+  const pathKey = `v1/scopes${
     user ? `?page=${page}&size=${size}&sort=${sort}&keyword=${keyword}` : ""
   }`;
   const { data, error, isValidating } =
-    useSWR<ApiResponse<PaginatedResponse<Wallet>>>(pathKey);
+    useSWR<ApiResponse<PaginatedResponse<Scope>>>(pathKey);
 
   const onAdd = useCallback(
-    async (walletData: Partial<Wallet>) => {
+    async (scopeData: Partial<Scope>) => {
       setLoading(true);
       try {
         const { data: res } = await api.post<ApiResponse<null>>(
-          "v1/wallets",
-          walletData
+          "v1/scopes",
+          scopeData
         );
 
         if (res.success) {
           mutate(pathKey);
-          toast.showToast("Success add wallet", "success");
+          toast.showToast("Success add scope", "success");
         } else {
           toast.showToast("Something went wrong", "error");
         }
@@ -71,17 +70,17 @@ export const useWallets = () => {
   }, []);
 
   const onEdit = useCallback(
-    async (wallet: Wallet) => {
+    async (scope: Scope) => {
       setEditLoading(true);
       try {
         const { data: res } = await api.put<ApiResponse<null>>(
-          `v1/wallets/${wallet.id}`,
-          wallet
+          `v1/scopes/${scope.id}`,
+          scope
         );
 
         if (res.success) {
           mutate(pathKey);
-          toast.showToast("Success update wallet", "success");
+          toast.showToast("Success update scope", "success");
         } else {
           toast.showToast("Something went wrong", "error");
         }
@@ -99,12 +98,12 @@ export const useWallets = () => {
       setDeleteLoading(true);
       try {
         const { data: res } = await api.delete<ApiResponse<null>>(
-          `v1/wallets/${id}`
+          `v1/scopes/${id}`
         );
 
         if (res.success) {
           mutate(pathKey);
-          toast.showToast("Success delete wallet", "success");
+          toast.showToast("Success delete scope", "success");
         } else {
           toast.showToast("Something went wrong", "error");
         }
@@ -119,7 +118,7 @@ export const useWallets = () => {
 
   return {
     data: data?.data as
-      | PaginatedResponse<Wallet>
+      | PaginatedResponse<Scope>
       | {
           records: [];
           page_summary: { has_next: false; page: 1; size: 5; total: 0 };
@@ -135,17 +134,5 @@ export const useWallets = () => {
       loading: editLoading,
     },
     loading: loading || (!error && !data) || isValidating,
-  };
-};
-
-export const useWalletOptions = () => {
-  const pathKey = `v1/wallets/options`;
-
-  const { data, isLoading, isValidating } =
-    useSWR<ApiResponse<Wallet[]>>(pathKey);
-
-  return {
-    data: data?.data || [],
-    loading: isLoading || isValidating,
   };
 };

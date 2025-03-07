@@ -21,50 +21,35 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { useTransactions, Transaction } from "@/lib/hooks/useTransactions";
+import { useScopes, Scope } from "@/lib/hooks/useScopes";
 
 import moment from "moment";
-import { CreateTransaction } from "./dialog/CreateTransaction";
-// import { UpdateTransaction } from "./dialog/UpdateTransaction";
+import { CreateScope } from "./dialog/CreateScope";
+import { UpdateScope } from "./dialog/UpdateScope";
 import { Confirmation } from "./dialog/Confirmation";
 
-export function TransactionHistoryContent() {
-  const {
-    data: transactions,
-    onAdd,
-    onQuery,
-    delete: deleteTransaction,
-  } = useTransactions();
+export function ScopeContent() {
+  const { data: scopes, onQuery, delete: deleteScope } = useScopes();
 
   const [search, setSearch] = useState("");
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedTransaction, setSelectedTransaction] = useState<Transaction>({
+  const [selectedScope, setSelectedScope] = useState<Scope>({
     id: "",
-    wallet_id: 0,
-    category: "",
-    transaction_type: "",
-    description: "",
-    spent_at: "",
-    amount: 0,
+    name: "",
     created_at: "",
   });
-
-  const handleCreateTransaction = (newBudget: any) => {
-    onAdd(newBudget);
-    setIsCreateDialogOpen(false);
-  };
 
   return (
     <>
       <div className="w-full max-w-6xl mx-auto">
-        <h1 className="text-2xl font-semibold mb-5">Transactions</h1>
+        <h1 className="text-2xl font-semibold mb-5">Scopes</h1>
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="relative mb-6">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-primary" />
             <Input
-              placeholder="Search transactions..."
+              placeholder="Search scopes..."
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
@@ -80,7 +65,7 @@ export function TransactionHistoryContent() {
             className="bg-primary text-foreground hover:bg-secondary dark:bg-primary-darker dark:text-foreground dark:hover:bg-secondary mb-6"
           >
             <Plus className="mr-2 h-4 w-4" />
-            Add Transaction
+            Add Scope
           </Button>
         </div>
 
@@ -89,53 +74,38 @@ export function TransactionHistoryContent() {
             <TableHeader className="bg-background-lighter dark:bg-background-lighter rounded-t-lg">
               <TableRow className="bg-background-lighter dark:bg-background-lighter border-b border-border dark:border-border">
                 <TableHead className="font-semibold">ID</TableHead>
-                <TableHead className="font-semibold">Type</TableHead>
-                <TableHead className="font-semibold">Category</TableHead>
-                <TableHead className="font-semibold">Description</TableHead>
-                <TableHead className="font-semibold">Amount</TableHead>
-                <TableHead className="font-semibold">Spent At</TableHead>
+                <TableHead className="font-semibold">Name</TableHead>
                 <TableHead className="font-semibold">Date Created</TableHead>
                 <TableHead className="w-[50px]"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {transactions?.records?.length > 0 ? (
-                transactions?.records.map((transaction) => (
+              {scopes?.records?.length > 0 ? (
+                scopes?.records.map((scope) => (
                   <TableRow
-                    key={transaction.id}
+                    key={scope.id}
                     className="border-b border-border dark:border-border"
                   >
-                    <TableCell className="font-medium">
-                      {transaction.id}
-                    </TableCell>
-                    <TableCell>{transaction.transaction_type}</TableCell>
-                    <TableCell>{transaction.category}</TableCell>
-                    <TableCell>{transaction.description}</TableCell>
-                    <TableCell>{`Rp${new Intl.NumberFormat("id-ID").format(
-                      transaction.amount
-                    )}`}</TableCell>
+                    <TableCell className="font-medium">{scope.id}</TableCell>
+                    <TableCell>{scope.name}</TableCell>
                     <TableCell>
-                      {moment(transaction.spent_at).format("DD MMM YYYY")}
-                    </TableCell>
-                    <TableCell>
-                      {moment(transaction.created_at).format("DD MMM YYYY")}
+                      {moment(scope.created_at).format("DD MMM YYYY")}
                     </TableCell>
                     <TableCell className="flex flex-row gap-2">
                       <Button
                         onClick={() => {
-                          setSelectedTransaction(transaction);
+                          setSelectedScope(scope);
                           setIsUpdateDialogOpen(true);
                         }}
                         variant="outline"
                         size="icon"
                         className="h-8 w-8"
-                        disabled
                       >
                         <Edit2 className="h-4 w-4" />
                       </Button>
                       <Button
                         onClick={() => {
-                          setSelectedTransaction(transaction);
+                          setSelectedScope(scope);
                           setIsDeleteDialogOpen(true);
                         }}
                         variant="outline"
@@ -149,7 +119,7 @@ export function TransactionHistoryContent() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={8} className="text-center">
+                  <TableCell colSpan={5} className="text-center">
                     No data found
                   </TableCell>
                 </TableRow>
@@ -161,39 +131,34 @@ export function TransactionHistoryContent() {
         <div className="flex justify-end items-center space-x-2 mt-4">
           <Button
             variant="outline"
-            onClick={() =>
-              onQuery({ page: +transactions?.page_summary?.page - 1 })
-            }
-            disabled={transactions?.page_summary?.page === 1}
+            onClick={() => onQuery({ page: +scopes?.page_summary?.page - 1 })}
+            disabled={scopes?.page_summary?.page === 1}
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <span className="text-sm font-medium">
             {/* Page {currentPage} of {totalPages} */}
-            Page {transactions?.page_summary?.page || 0} of{" "}
+            Page {scopes?.page_summary?.page} of{" "}
             {Math.ceil(
-              transactions?.page_summary?.total /
-                transactions?.page_summary?.size || 0
+              scopes?.page_summary?.total / scopes?.page_summary?.size
             )}
           </span>
           <Button
             variant="outline"
-            onClick={() =>
-              onQuery({ page: +transactions?.page_summary?.page + 1 })
-            }
-            disabled={!transactions?.page_summary?.has_next}
+            onClick={() => onQuery({ page: +scopes?.page_summary?.page + 1 })}
+            disabled={!scopes?.page_summary?.has_next}
           >
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
 
-        {/* <UpdateTransaction
-          data={selectedTransaction}
+        <UpdateScope
+          data={selectedScope}
           isOpen={isUpdateDialogOpen}
           onClose={() => setIsUpdateDialogOpen(false)}
-        /> */}
+        />
 
-        <CreateTransaction
+        <CreateScope
           isOpen={isCreateDialogOpen}
           onClose={() => setIsCreateDialogOpen(false)}
         />
@@ -202,11 +167,11 @@ export function TransactionHistoryContent() {
           isOpen={isDeleteDialogOpen}
           onCancel={() => setIsDeleteDialogOpen(false)}
           onConfirm={() => {
-            deleteTransaction.onDelete(selectedTransaction.id);
+            deleteScope.onDelete(selectedScope.id);
             setIsDeleteDialogOpen(false);
           }}
-          title="Delete Transaction"
-          message="Are you sure you want to delete this transaction?"
+          title="Delete Scope"
+          message="Are you sure you want to delete this scope?"
         />
       </div>
     </>

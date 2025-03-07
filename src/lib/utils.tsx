@@ -9,47 +9,47 @@ export const categories = {
   categories: [
     {
       name: "Home",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Food",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Health",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Beauty",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Entertainment",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Transportation",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Bills",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Other",
-      type: "EXPENSES",
+      type: "expense",
     },
     {
       name: "Salary",
-      type: "INCOME",
+      type: "income",
     },
     {
       name: "Payment",
-      type: "INCOME",
+      type: "income",
     },
     {
       name: "Other",
-      type: "INCOME",
+      type: "income",
     },
   ],
 };

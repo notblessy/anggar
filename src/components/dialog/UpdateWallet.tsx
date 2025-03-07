@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,55 +10,74 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { useWallets, Wallet } from "@/lib/hooks/useWallets";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-interface CreateWalletDialogProps {
+interface UpdateWalletProps {
+  data: Wallet;
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (expense: {
-    name: string;
-    balance: number;
-  }) => void;
 }
 
-export function CreateWallet({
-  isOpen,
-  onClose,
-  onAdd,
-}: CreateWalletDialogProps) {
-  const [name, setName] = useState("");
-  const [balance, setBalance] = useState("");
+export function UpdateWallet({ data, isOpen, onClose }: UpdateWalletProps) {
+  const { edit, delete: deleteWallet } = useWallets();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onAdd({
-      name,
-      balance: Number.parseFloat(balance),
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm<Wallet>({
+    defaultValues: {
+      id: data.id,
+      name: data.name,
+      balance: data.balance,
+      created_at: data.created_at,
+    },
+  });
+
+  const onSubmit: SubmitHandler<Wallet> = (data) => {
+    edit.onEdit({
+      id: data.id,
+      name: data.name,
+      balance: data.balance,
+      created_at: data.created_at,
     });
+
     onClose();
-    // Reset form
-    setName("");
-    setBalance("");
+    reset();
   };
+
+  useEffect(() => {
+    if (data) {
+      reset({
+        id: data.id,
+        name: data.name,
+        balance: data.balance,
+        created_at: data.created_at,
+      });
+    }
+  }, [data, reset]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="bg-white dark:bg-gray-800 sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">
-            Add New Wallet
+            Update New Wallet
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="space-y-2">
             <label htmlFor="description" className="text-sm font-medium">
               Name
             </label>
             <Input
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
               required
               className="bg-gray-50 dark:bg-gray-700"
+              {...register("name")}
             />
           </div>
           <div className="space-y-2">
@@ -69,18 +88,17 @@ export function CreateWallet({
               id="amount"
               type="number"
               step="0.01"
-              value={balance}
-              onChange={(e) => setBalance(e.target.value)}
               required
               className="bg-gray-50 dark:bg-gray-700"
+              {...register("balance")}
             />
           </div>
-          <DialogFooter className="flex flex-col pt-8">
+          <DialogFooter className="flex flex-row justify-between pt-8">
             <Button
               type="submit"
               className="flex-1 bg-primary text-foreground hover:bg-secondary dark:bg-primary-darker dark:text-foreground dark:hover:bg-secondary mb-6"
             >
-              Add Wallet
+              Edit
             </Button>
           </DialogFooter>
         </form>

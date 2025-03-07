@@ -1,11 +1,11 @@
 "use client";
 
-import { BudgetContent } from "@/components/BudgetContent";
+import { ScopeContent } from "@/components/ScopeContent";
 import { useAuth } from "@/lib/context/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function BudgetPage() {
+export default function ScopePage() {
   const router = useRouter();
 
   const { user, loading } = useAuth();
@@ -18,7 +18,7 @@ export default function BudgetPage() {
 
   return (
     <div className="container flex justify-center">
-      <BudgetContent />
+      <ScopeContent />
     </div>
   );
 }

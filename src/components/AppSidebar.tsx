@@ -21,7 +21,7 @@ import { useAuth } from "@/lib/context/auth";
 
 const menuItems = [
   { title: "Dashboard", icon: Home, href: "/dashboard" },
-  { title: "Budgets", icon: DollarSign, href: "/budgets" },
+  // { title: "Scopes", icon: DollarSign, href: "/scopes" },
   { title: "Wallets", icon: Wallet, href: "/wallets" },
   { title: "Transactions", icon: CreditCard, href: "/transactions" },
 ];
